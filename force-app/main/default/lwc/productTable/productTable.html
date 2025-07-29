@@ -1,0 +1,61 @@
+<template>
+  <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center slds-m-bottom_medium">
+    <lightning-button label="New product" onclick={handleTableActions} data-action="create"></lightning-button>
+  </div>
+  <div class="slds-grid slds-align-middle slds-grid_align-center slds-m-around_medium">
+    <div class="slds-col slds-m-right_x-small">
+      <lightning-input type="text" placeholder="Searching by name" value={searchingParam} onkeypress={handleTableActions} data-action="search" variant="label-hidden"></lightning-input>
+    </div>
+    <div class="slds-col">
+      <lightning-button label="Clear" onclick={handleTableActions} data-action="all"></lightning-button>
+    </div>
+  </div>
+  <template if:true={isFormVisible}>
+    <c-product-form action={formAction} initial-data={productToEdit} oncomplete={handleFormEvent}></c-product-form>
+  </template>
+  <div style="position: relative;">
+  <template if:true={loading}>
+      <lightning-spinner alternative-text="Loading......" size="medium" variant="brand" style="position: absolute;"></lightning-spinner>
+  </template>
+  <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th>Product Type</th>
+        <th>Release Date</th>
+        <th>Available</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <template for:each={products} for:item="product">
+        <tr key={product.Id}>
+          <td style="white-space:pre-wrap;">{product.Name}</td>
+          <td style="white-space:pre-wrap;">{product.Amount__c}</td>
+          <td style="white-space:pre-wrap;">
+            <lightning-formatted-number
+              value={product.Price__c}
+              format-style="currency"
+              currency-code="USD">
+            </lightning-formatted-number>
+          </td>
+          <td style="white-space:pre-wrap;">{product.ProductType__c}</td>
+          <td style="white-space:pre-wrap;">{product.ReleaseDate__c}</td>
+          <td style="white-space:pre-wrap;">
+            <template if:true={product.Available__c}>Yes</template>
+            <template if:false={product.Available__c}>No</template>
+          </td>
+          <td style="white-space:pre-wrap;">
+            <lightning-button-menu icon-name="utility:down" alternative-text="Actions" onselect={handleTableActions} data-id={product.Id}>
+              <lightning-menu-item value="edit" label="Edit"></lightning-menu-item>
+              <lightning-menu-item value="delete" label="Delete"></lightning-menu-item>
+            </lightning-button-menu>
+          </td>
+        </tr>
+      </template>
+    </tbody>
+  </table>
+  </div>
+</template>

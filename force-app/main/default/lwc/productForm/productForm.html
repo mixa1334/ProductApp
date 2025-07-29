@@ -1,0 +1,24 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <h2 class="slds-text-heading_medium">{action} product</h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+          <lightning-input type="text" label="Name" value={formData.Name} onchange={handleInput} data-field="Name" required></lightning-input>
+          <lightning-input type="number" label="Price" value={formData.Price__c} onchange={handleInput} data-field="Price__c"></lightning-input>
+          <lightning-input type="number" label="Amount" value={formData.Amount__c} onchange={handleInput} data-field="Amount__c"></lightning-input>
+          <lightning-combobox label="Product Type" value={formData.ProductType__c} options={availableTypes} onchange={handleInput} data-field="ProductType__c" required></lightning-combobox>
+          <lightning-input type="date" label="Release Date" value={formData.ReleaseDate__c} onchange={handleInput} data-field="ReleaseDate__c"></lightning-input>
+          <template if:true={errorMsg}>
+            <p class="slds-text-color_error slds-m-top_small">{errorMsg}</p>
+          </template>
+        </div>
+        <footer class="slds-modal__footer">
+          <lightning-button variant="brand" label="Save" onclick={complete}></lightning-button>
+          <lightning-button variant="neutral" label="Cancel" onclick={cancel}></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
