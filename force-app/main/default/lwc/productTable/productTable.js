@@ -64,7 +64,6 @@ export default class ProductTable extends LightningElement {
 
     _searchByName(param = '') {
         this.searchingParam = param;
-        console.log(this.searchingParam);
         this._reloadProducts();
     }
 
