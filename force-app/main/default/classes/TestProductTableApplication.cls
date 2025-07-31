@@ -170,8 +170,8 @@ private class TestProductTableApplication {
         ProductTableTriggerHelper.processInsert(products);
         Test.stopTest();
 
-        System.Assert.isNotNull(products[0].AddedDate__c, 'AddedDate__c должна быть установлена');
-        System.Assert.isTrue(products[0].Available__c, 'Available__c должна быть true, т.к. Amount__c > 0');
+        System.Assert.isNotNull(products[0].AddedDate__c);
+        System.Assert.isTrue(products[0].Available__c);
     }
 
     @IsTest
@@ -190,7 +190,7 @@ private class TestProductTableApplication {
         ProductTableTriggerHelper.processInsert(products);
         Test.stopTest();
 
-        System.Assert.isFalse(products[0].Available__c, 'Available__c должна быть false при Amount__c = 0');
+        System.Assert.isFalse(products[0].Available__c);
     }
 }
 
